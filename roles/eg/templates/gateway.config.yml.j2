@@ -1,0 +1,40 @@
+http:
+  port: {{ eg_http_port }}
+https:
+  port: {{ eg_https_port }}
+  tls:
+    "default":
+        key: "{{ certfolder }}/ssl.key"
+        cert: "{{ certfolder }}/ssl.crt"
+admin:
+  port: {{ eg_admin_port }}
+  hostname: 0.0.0.0
+apiEndpoints:
+  # see: http://www.express-gateway.io/docs/configuration/gateway.config.yml/apiEndpoints
+  api:
+    host: '*'
+    paths: '/ip'
+serviceEndpoints:
+  # see: http://www.express-gateway.io/docs/configuration/gateway.config.yml/serviceEndpoints
+  httpbin:
+    url: 'https://httpbin.org'
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  # see: https://www.express-gateway.io/docs/configuration/gateway.config.yml/pipelines
+  basic:
+    apiEndpoints:
+      - api
+    policies:
+      - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: httpbin
+              changeOrigin: true

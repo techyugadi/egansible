@@ -1,0 +1,27 @@
+---
+- hosts: master
+  tasks:
+  - name: restart redis master
+    service:
+      name: redis-server
+      state: restarted
+    become: true
+    become_method: sudo
+
+- hosts: slaves
+  tasks:
+  - name: restart redis slaves
+    service:
+      name: redis-server
+      state: restarted
+    become: true
+    become_method: sudo
+
+- hosts: sentinels
+  tasks:
+  - name: restart redis sentinels
+    service:
+      name: redis-sentinel
+      state: restarted
+    become: true
+    become_method: sudo

@@ -1,0 +1,5 @@
+---
+# defaults file for sentinel
+sentinel_port: 26379
+master_port: 6379
+quorum: 2

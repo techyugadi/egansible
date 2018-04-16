@@ -1,0 +1,31 @@
+---
+- hosts: master
+  tasks:
+  - include_role:
+      name: master
+
+- hosts: slaves
+  tasks:
+  - include_role:
+      name: slave
+    vars:
+      master_host: "{{ groups['master'][0] }}"
+
+- hosts: sentinels
+  tasks:
+  - include_role:
+      name: sentinel
+    vars:
+      master_host: "{{ groups['master'][0] }}"
+      master_name: mymaster
+
+- import_playbook: services.yml
+
+- hosts: gateway
+  tasks:
+  - include_role:
+      name: eg
+    vars:
+      sentinel1_host: "{{ groups['sentinels'][0] }}"
+      sentinel2_host: "{{ groups['sentinels'][1] }}"
+      master_name: mymaster

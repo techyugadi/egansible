@@ -1,0 +1,7 @@
+---
+# defaults file for eg
+eg_http_port: 8080
+eg_https_port: 8443
+eg_admin_port: 9876
+gateway_name: mygateway
+gateway_type: basic

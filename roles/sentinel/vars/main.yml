@@ -1,0 +1,4 @@
+---
+# vars file for slave
+master_host: localhost
+master_name: mymaster

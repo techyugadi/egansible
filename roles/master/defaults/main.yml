@@ -1,0 +1,3 @@
+---
+# defaults file for master
+master_port: 6379

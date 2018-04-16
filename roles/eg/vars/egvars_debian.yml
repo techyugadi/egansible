@@ -1,0 +1,5 @@
+---
+# vars for express gateway on Debian and Ubuntu latest versions
+nodeurl: https://deb.nodesource.com/setup_9.x
+certfolder: /usr/local/share/ca-certificates
+

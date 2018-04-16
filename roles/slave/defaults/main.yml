@@ -1,0 +1,4 @@
+---
+# defaults file for master
+master_port: 6379
+slave_port: 6379

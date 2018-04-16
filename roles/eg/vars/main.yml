@@ -1,0 +1,8 @@
+---
+# vars file for eg
+sentinel1_host: localhost
+sentinel1_port: 26379
+# this is just a template - ensure there are no port conflicts when actually
+# running this as part of a play
+sentinel2_host: localhost
+sentinel2_port: 26379

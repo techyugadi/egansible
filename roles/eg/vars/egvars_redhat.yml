@@ -1,0 +1,4 @@
+---
+# vars for express gateway on RedHat Linux, CentOS and Fedora latest versions
+nodeurl: https://rpm.nodesource.com/setup_9.x
+certfolder: /etc/pki/ca-trust/extracted/pem

@@ -1,0 +1,35 @@
+---
+# tasks file for redis sentinel
+
+  - name: install redis-sentinel
+    package:
+      name: redis-sentinel
+      state: present
+    become: true
+    become_method: sudo
+
+  - name: enable redis-sentinel to start on system boot
+    service:
+      name: redis-sentinel
+      enabled: yes
+    become: true
+    become_method: sudo
+
+# In this play, the redis sentinel will be restarted after configuring the
+# entire Redis cluster including master, slaves and sentinels
+  - name: stop redis sentinel
+    service:
+      name: redis-sentinel
+      state: stopped
+    become: true
+    become_method: sudo
+
+  - name: copy sentinel config
+    template:
+      src: sentinel.conf.j2
+      dest: /etc/redis/sentinel.conf
+      owner: redis
+      group: redis
+      mode: 0644
+    become: true
+    become_method: sudo

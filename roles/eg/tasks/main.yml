@@ -1,0 +1,86 @@
+---
+# tasks file for setting up Express Gateway
+  
+  - name: include os dependent variables
+    include_vars: egvars_{{ ansible_os_family|lower }}.yml
+
+  - name: check if ssl.yml file exists
+    stat:
+      path: "{{ playbook_dir }}/roles/eg/vars/ssl.yml"
+    register: filestat
+
+  - name: fail the play ssl.yml does not exist
+    fail:
+      msg: "First copy SSL key and certificate. Refer to README on github."
+    when: filestat.stat.exists == False
+
+  - name: include ssl key and cert as variables
+    include_vars:
+      file: ssl.yml
+
+  - name: configure system for node.js installation
+    get_url:
+      url: "{{ nodeurl }}"
+      dest: /tmp/nodesetup.sh
+      mode: 0755
+
+  - name: run nodesetup
+    shell: /tmp/nodesetup.sh
+    become: true
+    become_method: sudo
+
+  - name: install node.js
+    package:
+      name: nodejs
+      state: present
+    become: true
+    become_method: sudo
+
+  - name: install Express Gateway
+    npm:
+      name: express-gateway
+      global: yes
+      state: latest
+    become: true
+    become_method: sudo
+
+  - name: install forever.js
+    npm:
+      name: forever
+      global: yes
+      state: latest
+    become: true
+    become_method: sudo
+
+  - name: create a Gateway
+    command: eg gateway create -n {{ gateway_name }} -d {{ ansible_env.HOME }}/{{ gateway_name }} -t {{ gateway_type }}
+
+  - name: copy gateway configuration to EG host
+    template:
+      src: gateway.config.yml.j2
+      dest: "{{ ansible_env.HOME }}/{{ gateway_name }}/config/gateway.config.yml"
+  - name: copy system configuration to EG host
+    template:
+      src: system.config.yml.j2
+      dest: "{{ ansible_env.HOME }}/{{ gateway_name }}/config/system.config.yml"
+
+  - name: copy SSL key
+    copy:
+      content: "{{ ssl_private_key }}"
+      dest: "{{ certfolder }}/ssl.key"
+      mode: 0644
+    become: true
+    become_method: sudo
+
+  - name: copy SSL certificate
+    copy:
+      content: "{{ ssl_certificate }}"
+      dest: "{{ certfolder }}/ssl.crt"
+      mode: 0644
+    become: true
+    become_method: sudo
+
+  - name: clean npm cache
+    shell: npm cache clean --force
+    notify:
+      - start Express Gateway using forever.js

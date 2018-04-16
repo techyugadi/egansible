@@ -1,0 +1,7 @@
+---
+# handlers file for express gateway
+
+  - name: start Express Gateway using forever.js
+    command: forever start server.js
+    args:
+      chdir: "{{ ansible_env.HOME }}/{{ gateway_name }}"

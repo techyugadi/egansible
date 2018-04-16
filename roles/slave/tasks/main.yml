@@ -1,0 +1,35 @@
+---
+# tasks file for redis slave
+
+  - name: install redis-server
+    package:
+      name: redis-server
+      state: present
+    become: true
+    become_method: sudo
+
+  - name: enable redis-server to start on system boot
+    service:
+      name: redis-server
+      enabled: yes
+    become: true
+    become_method: sudo
+
+# In this play, the redis slave will be restarted after configuring the
+# entire Redis cluster including master, slaves and sentinels
+  - name: stop redis server
+    service:
+      name: redis-server
+      state: stopped
+    become: true
+    become_method: sudo
+
+  - name: copy redis config
+    template:
+      src: redis.conf.j2
+      dest: /etc/redis/redis.conf
+      owner: redis
+      group: redis
+      mode: 0644
+    become: true
+    become_method: sudo
