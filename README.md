@@ -17,7 +17,7 @@ accessed as ansible variables by the egansible play. Therefore, create a file
 named `ssl.yml`, in the format specified in file: `roles/eg/vars/ssl.yml.template`. Please use two-space indents as shown.
 
 * Encrypt the ssl.yml file created above using Ansible Vault. Run the command:  
-`ansible-vault encrypt ssl.yml`
+`ansible-vault encrypt ssl.yml`  
 Copy the vault-encrypted file `ssl.yml` to `roles/eg/vars` directory under the `egansible` folder.
 
 * Create a password file for your ansible vault password (you must have supplied
