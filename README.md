@@ -43,3 +43,7 @@ in the play using `firewalld` on RedHat / CentOS / Fedora and `ufw` on Debian /
  Ubuntu. Obviously you will need to enhance these rules appropriately for your
 deployment, using firewalld zones,  and restricting incoming connections to the
 Redis database, for example.
+
+For more details, refer to:  
+[egansible For Express Gateway: Let's Play - Part I] (http://techyugadi.com/expressgateway_egansible1.html)  
+[egansible For Express Gateway: Let's Play - Part II] (http://techyugadi.com/expressgateway_egansible2.html)
