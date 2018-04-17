@@ -1,0 +1,16 @@
+---
+# tasks for setting up ufw on Ubuntu and Debian
+
+  - name: install ufw
+    package:
+      name: ufw
+      state: present
+    become: true
+    become_method: sudo
+
+  - name: enable ufw to start on system boot
+    service:
+      name: ufw
+      enabled: yes
+    become: true
+    become_method: sudo

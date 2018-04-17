@@ -8,12 +8,12 @@ _Steps to run the play:_
 
 * Checkout the source-code from github to the Ansible Controller machine:  
 `git clone https://github.com/techyugadi/egansible.git`  
-This will create a directory named egansible on your Ansible controller machine.
+This will create a directory named `egansible` on your Ansible controller machine.
 
 * API endpoints should ideally be accessed over HTTPS. On the Ansible controller
 machine, create a file containing an SSL key and certificate that can be used to
 secure your API endpoints. Actually, your SSL key and certificate will be 
-accessed as ansible variables by the egansible play. Therefore, create a file 
+accessed as ansible variables by the `egansible` play. Therefore, create a file 
 named `ssl.yml`, in the format specified in file: `roles/eg/vars/ssl.yml.template`. Please use two-space indents as shown.
 
 * Encrypt the ssl.yml file created above using Ansible Vault. Run the command:  
@@ -27,13 +27,19 @@ Let this file be `~/.vaultpass` .
 * Check the `hosts.ini` file under `egansible` folder. This is just a template.
 Please supply the hostnames for the machines where you want to set up Express 
 Gateway, Redis master, Redis slaves and Redis sentinel.  
-On each machine in your hosts.ini file, Ansible will run commands as a certain 
+On each machine in your `hosts.ini` file, Ansible will run commands as a certain 
 OS user. This OS user must be capable of running commands using 'sudo' on 
 Unix-based systems. Hence, do provide the passwords for these OS users too.
 
-* Now, run the ansible play from the egansible directory on your Ansible 
+* Now, run the ansible play from the `egansible` directory on your Ansible 
 controller machine:  
 First set the required environment variable:  
 `export ANSIBLE_VAULT_PASSWORD_FILE=~/.vaultpass`  
 Then run the command:  
 `ansible-playbook main.yml -i hosts.ini`
+
+_Firewall Configuration_: An essential set of firewall rules have been included 
+in the play using `firewalld` on RedHat / CentOS / Fedora and `ufw` on Debian /
+ Ubuntu. Obviously you will need to enhance these rules appropriately for your
+deployment, using firewalld zones,  and restricting incoming connections to the
+Redis database, for example.

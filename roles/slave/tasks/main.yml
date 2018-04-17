@@ -33,3 +33,9 @@
       mode: 0644
     become: true
     become_method: sudo
+
+  - import_tasks: firewall_redhat.yml
+    when: ansible_os_family == "RedHat"
+
+  - import_tasks: firewall_debian.yml
+    when: ansible_os_family == "Debian"

@@ -1,0 +1,34 @@
+---
+# tasks file for configuring firewall on RedHat, CentOS, Fedora
+
+  - name: Open HTTP Port
+    firewalld:
+      port: "{{ eg_http_port }}/tcp"
+      permanent: true
+      state: enabled
+    become: true
+    become_method: sudo
+
+  - name: Open HTTPS Port
+    firewalld:
+      port: "{{ eg_https_port }}/tcp"
+      permanent: true
+      state: enabled
+    become: true
+    become_method: sudo
+
+  - name: Open Admin Port
+    firewalld:
+      port: "{{ eg_admin_port }}/tcp"
+      permanent: true
+      state: enabled
+    become: true
+    become_method: sudo
+
+  - name: Open SSH Port
+    firewalld:
+      port: 22/tcp
+      permanent: true
+      state: enabled
+    become: true
+    become_method: sudo

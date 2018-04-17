@@ -1,0 +1,16 @@
+---
+# setting up firewalld on RedHat, CentOS and Fedora
+
+  - name: install firewalld
+    package:
+      name: firewalld
+      state: present
+    become: true
+    become_method: sudo
+
+  - name: enable firewalld to start on system boot
+    service:
+      name: firewalld
+      enabled: yes
+    become: true
+    become_method: sudo

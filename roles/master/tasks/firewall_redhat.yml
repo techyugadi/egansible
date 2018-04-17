@@ -1,0 +1,18 @@
+---
+# tasks file for configuring firewall on RedHat, CentOS, Fedora
+
+  - name: Open Redis Master Port
+    firewalld:
+      port: "{{ master_port }}/tcp"
+      permanent: true
+      state: enabled
+    become: true
+    become_method: sudo
+
+  - name: Open SSH Port
+    firewalld:
+      port: 22/tcp
+      permanent: true
+      state: enabled
+    become: true
+    become_method: sudo

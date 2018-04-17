@@ -1,0 +1,18 @@
+---
+# tasks file for configuring firewall on Ubuntu and Debian
+
+  - name: Open Redis Sentinel Port
+    ufw:
+      rule: allow
+      port: "{{ sentinel_port }}"
+      proto: tcp
+    become: true
+    become_method: sudo
+
+  - name: Open SSH Port
+    ufw:
+      rule: allow
+      port: 22
+      proto: tcp
+    become: true
+    become_method: sudo

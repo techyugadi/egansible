@@ -1,0 +1,34 @@
+---
+# tasks file for configuring firewall on Ubuntu and Debian
+
+  - name: Open HTTP Port
+    ufw:
+      rule: allow
+      port: "{{ eg_http_port }}"
+      proto: tcp
+    become: true
+    become_method: sudo
+
+  - name: Open HTTPS Port
+    ufw:
+      rule: allow
+      port: "{{ eg_https_port }}"
+      proto: tcp
+    become: true
+    become_method: sudo
+
+  - name: Open Admin Port
+    ufw:
+      rule: allow
+      port: "{{ eg_admin_port }}"
+      proto: tcp
+    become: true
+    become_method: sudo
+
+  - name: Open SSH Port
+    ufw:
+      rule: allow
+      port: 22
+      proto: tcp
+    become: true
+    become_method: sudo

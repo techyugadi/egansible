@@ -1,4 +1,14 @@
 ---
+- hosts: all
+  tasks:
+  - import_tasks: "firewall_redhat.yml"
+    when: ansible_os_family == "RedHat"
+
+- hosts: all
+  tasks:
+  - import_tasks: "firewall_debian.yml"
+    when: ansible_os_family == "Debian"
+
 - hosts: master
   tasks:
   - include_role:
